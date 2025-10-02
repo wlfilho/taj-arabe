@@ -105,26 +105,36 @@ export function CartSheet() {
               {formatCurrency(total)}
             </span>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <Button
-              variant="outline"
-              className="flex-1"
-              onClick={clearCart}
-              disabled={!items.length}
+              type="button"
+              variant="ghost"
+              className="w-full rounded-full border border-[#e7dccd] bg-white text-[#7d6446] hover:border-[#d3a06f] hover:text-[#b37944] sm:hidden"
+              onClick={() => toggleCart(false)}
             >
-              Limpar
+              Continuar comprando
             </Button>
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(
-                "flex flex-1 items-center justify-center gap-2 rounded-full bg-[#c08954] px-5 py-3 text-sm font-semibold text-white shadow transition hover:bg-[#b37944] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]",
-                !items.length && "pointer-events-none opacity-60",
-              )}
-            >
-              Finalizar pedido
-            </a>
+            <div className="flex flex-col gap-3 sm:flex-1 sm:flex-row">
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={clearCart}
+                disabled={!items.length}
+              >
+                Limpar
+              </Button>
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  "flex flex-1 items-center justify-center gap-2 rounded-full bg-[#c08954] px-5 py-3 text-sm font-semibold text-white shadow transition hover:bg-[#b37944] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]",
+                  !items.length && "pointer-events-none opacity-60",
+                )}
+              >
+                Finalizar pedido
+              </a>
+            </div>
           </div>
         </footer>
       </aside>

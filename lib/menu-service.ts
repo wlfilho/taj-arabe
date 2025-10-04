@@ -118,6 +118,7 @@ function buildMenuItems(csv: string): MenuItem[] {
       } satisfies MenuItem;
     })
     .filter((item) => Boolean(item.name))
+    .filter((item) => item.available)
     .sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
 }
 

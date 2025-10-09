@@ -118,11 +118,4 @@ Linhas sem `ID` terão um identificador gerado automaticamente. Valores vazios e
 
 Configure a primeira linha da aba com pelo menos as colunas `Timestamp`, `Nome` e `Email`. O endpoint `POST /api/leads` adicionará automaticamente novas linhas com data ISO, nome e e-mail de cada visitante inscrito.
 
-## ✅ Próximos passos sugeridos
-- Configurar uma imagem real (`public/og-cardapio.png`) para compartilhamento social
-- Publicar a planilha como CSV público (Arquivo → Compartilhar → Publicar na web)
-- Ajustar as cores e ícones para a identidade visual final do restaurante
-- Incluir testes E2E (Playwright) para validar fluxo de compra e fallback de dados
 
----
-Criado com carinho para o Restaurante Lilica 💛

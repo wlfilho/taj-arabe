@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { Search } from "lucide-react";
 
 import { CartButton } from "@/components/cart/cart-button";
+import { SearchBarHeader } from "@/components/search/search-bar-header";
+import { useSearch } from "@/components/search/search-provider";
 import type { SiteConfigWithComputed } from "@/types/config";
 
 interface SiteHeaderProps {
@@ -11,9 +14,10 @@ interface SiteHeaderProps {
 
 export function SiteHeader({ config }: SiteHeaderProps) {
   const whatsappLink = config.whatsappLink;
+  const { toggleSearch } = useSearch();
 
   return (
-    <header className="border-b border-[#efe3d2] bg-[#fdf7ef]">
+    <header className="sticky top-0 z-40 border-b border-[#efe3d2] bg-[#fdf7ef]">
       <div className="border-b border-[#f0e3d0] bg-[#f4e8d8]">
         <div className="container-responsive flex items-center justify-between py-2 text-sm text-[#7d6446]">
           <span>Delícias árabes feitas com carinho todos os dias.</span>
@@ -61,8 +65,20 @@ export function SiteHeader({ config }: SiteHeaderProps) {
             </p>
           </div>
         </Link>
-        <CartButton />
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => toggleSearch()}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e7dccd] bg-white/90 text-[#6a5336] shadow-sm transition hover:border-[#d3a06f] hover:text-[#b37944]"
+            aria-label="Buscar no cardápio"
+          >
+            <Search className="h-5 w-5" aria-hidden />
+          </button>
+          <CartButton />
+        </div>
       </div>
+
+      <SearchBarHeader />
     </header>
   );
 }

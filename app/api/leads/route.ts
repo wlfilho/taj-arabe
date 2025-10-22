@@ -7,7 +7,7 @@ const SHEET_ID =
   process.env.SHEET_ID ??
   "";
 
-const LEADS_RANGE = process.env.GOOGLE_LEADS_RANGE ?? "Leads!A:C";
+const LEADS_RANGE = process.env.GOOGLE_LEADS_RANGE ?? "Leads!A:D";
 const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? "";
 const SERVICE_ACCOUNT_KEY = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY ?? "";
 
@@ -48,10 +48,11 @@ export async function POST(request: Request) {
     const body = await request.json();
     const name = String(body.name ?? "").trim();
     const email = String(body.email ?? "").trim();
+    const whatsapp = String(body.whatsapp ?? "").trim();
 
-    if (!name || !email) {
+    if (!name || !email || !whatsapp) {
       return NextResponse.json(
-        { message: "Informe nome e e-mail para receber o cupom." },
+        { message: "Informe nome, e-mail e WhatsApp para receber o cupom." },
         { status: 400 },
       );
     }
@@ -62,7 +63,7 @@ export async function POST(request: Request) {
       range: LEADS_RANGE,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[new Date().toISOString(), name, email]],
+        values: [[new Date().toISOString(), name, email, whatsapp]],
       },
     });
 

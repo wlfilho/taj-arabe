@@ -3,10 +3,9 @@
 import { useMemo, useState } from "react";
 
 import { LeadForm } from "@/components/layout/lead-form";
-import { SearchBar } from "@/components/menu/search-bar";
 import { CategoryTabs, ALL_CATEGORY } from "@/components/menu/category-tabs";
 import { MenuSection } from "@/components/menu/menu-section";
-import { Button } from "@/components/ui/button";
+import { useSearch } from "@/components/search/search-provider";
 import { cn } from "@/lib/utils";
 import type { SiteConfigWithComputed } from "@/types/config";
 import type { MenuData, MenuItem } from "@/types/menu";
@@ -69,7 +68,7 @@ function filterItems({ items }: MenuData, search: string, category: string) {
 }
 
 export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScreenProps) {
-  const [search, setSearch] = useState("");
+  const { search } = useSearch();
   const [activeCategory, setActiveCategory] = useState(ALL_CATEGORY);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
@@ -127,28 +126,8 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
     setSelectedItem(null);
   };
 
-  const handleScrollToMenu = () => {
-    const section = document.querySelector("[data-menu-section]");
-    section?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-4 rounded-3xl border border-[#e7dccd] bg-white/85 p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-2">
-          <h2 className="text-2xl font-semibold text-[#4c3823]">Encontre seu prato</h2>
-          <p className="text-sm text-[#8f7454]">
-            Busque por ingredientes, pratos ou bebidas e finalize seu pedido em segundos.
-          </p>
-        </div>
-        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
-          <SearchBar value={search} onChange={setSearch} className="min-w-[240px] flex-1" />
-          <Button type="button" variant="secondary" onClick={handleScrollToMenu}>
-            Ver cardápio completo
-          </Button>
-        </div>
-      </div>
-
       <CategoryTabs
         categories={categories}
         activeCategory={activeCategory}
@@ -183,16 +162,6 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
           <p className="mt-2 text-sm text-[#9a8263]">
             Ajuste os filtros ou limpe a busca para visualizar o cardápio completo.
           </p>
-          <button
-            type="button"
-            className="mt-6 text-sm font-semibold text-[#b37944] hover:text-[#8f5827]"
-            onClick={() => {
-              setSearch("");
-              setActiveCategory(ALL_CATEGORY);
-            }}
-          >
-            Limpar filtros
-          </button>
         </div>
       )}
 

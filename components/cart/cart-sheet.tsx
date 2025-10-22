@@ -18,7 +18,6 @@ export function CartSheet() {
     toggleCart,
     updateQuantity,
     removeItem,
-    clearCart,
     buildWhatsAppLink,
   } = useCart();
 
@@ -50,17 +49,17 @@ export function CartSheet() {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex justify-end bg-black/30 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm px-4 py-6"
       role="dialog"
       aria-modal="true"
       aria-label="Carrinho de compras"
       onClick={() => toggleCart(false)}
     >
-      <aside
-        className="h-full w-full max-w-md overflow-y-auto border-l border-[#e7dccd] bg-[#fdf7ef] shadow-2xl transition-transform"
+      <div
+        className="flex w-full max-w-lg flex-col overflow-hidden rounded-3xl border border-[#e7dccd] bg-[#fdf7ef] shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       >
-        <header className="sticky top-0 flex items-center justify-between border-b border-[#e7dccd] bg-[#f6ecde]/90 px-6 py-5 backdrop-blur">
+        <header className="flex items-center justify-between border-b border-[#e7dccd] bg-[#f6ecde]/90 px-6 py-5 backdrop-blur">
           <div>
             <h2 className="text-xl font-semibold text-[#4c3823]">
               Seu pedido
@@ -69,17 +68,17 @@ export function CartSheet() {
               {itemCount} item{itemCount === 1 ? "" : "s"} no carrinho
             </p>
           </div>
-          <Button
-            variant="ghost"
-            className="h-10 w-10 rounded-full border border-transparent text-[#c2aa8b] hover:border-[#d3a06f] hover:text-[#8f5827]"
+          <button
+            type="button"
             onClick={() => toggleCart(false)}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#6a5336] shadow hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]"
             aria-label="Fechar carrinho"
           >
             <X className="h-5 w-5" aria-hidden />
-          </Button>
+          </button>
         </header>
 
-        <div className="flex flex-col gap-4 px-6 py-6">
+        <div className="flex max-h-[50vh] flex-col gap-4 overflow-y-auto px-6 py-6">
           {items.length === 0 && (
             <div className="rounded-3xl border border-dashed border-[#e7dccd] bg-white/80 p-8 text-center text-[#9a8263]">
               Seu carrinho está vazio. Adicione itens deliciosos ao pedido!
@@ -96,48 +95,28 @@ export function CartSheet() {
           ))}
         </div>
 
-        <footer className="sticky bottom-0 mt-auto flex flex-col gap-4 border-t border-[#e7dccd] bg-[#f6ecde]/95 px-6 py-5 backdrop-blur-lg">
-          <div className="flex items-center justify-between text-base">
-            <span className="font-semibold text-[#9a8263]">
+        <footer className="flex items-center justify-between border-t border-[#e7dccd] bg-[#f6ecde]/95 px-6 py-5 backdrop-blur-lg">
+          <div className="flex flex-col">
+            <span className="text-sm font-medium text-[#9a8263]">
               Total
             </span>
-            <span className="text-xl font-bold text-[#4c3823]">
+            <span className="text-2xl font-bold text-[#4c3823]">
               {formatCurrency(total)}
             </span>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row">
-            <Button
-              type="button"
-              variant="ghost"
-              className="w-full rounded-full border border-[#e7dccd] bg-white text-[#7d6446] hover:border-[#d3a06f] hover:text-[#b37944] sm:hidden"
-              onClick={() => toggleCart(false)}
-            >
-              Continuar comprando
-            </Button>
-            <div className="flex flex-col gap-3 sm:flex-1 sm:flex-row">
-              <Button
-                variant="outline"
-                className="flex-1"
-                onClick={clearCart}
-                disabled={!items.length}
-              >
-                Limpar
-              </Button>
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "flex flex-1 items-center justify-center gap-2 rounded-full bg-[#c08954] px-5 py-3 text-sm font-semibold text-white shadow transition hover:bg-[#b37944] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]",
-                  !items.length && "pointer-events-none opacity-60",
-                )}
-              >
-                Finalizar pedido
-              </a>
-            </div>
-          </div>
+          <a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "flex items-center justify-center gap-2 rounded-full bg-[#c08954] px-6 py-3 text-sm font-semibold text-white shadow transition hover:bg-[#b37944] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]",
+              !items.length && "pointer-events-none opacity-60",
+            )}
+          >
+            Finalizar pedido
+          </a>
         </footer>
-      </aside>
+      </div>
     </div>
   );
 }

@@ -47,7 +47,7 @@ export function QuantitySelector({
       >
         <Minus className="h-4 w-4" aria-hidden />
       </button>
-      <span className="min-w-[2ch] text-center font-semibold text-neutral-700 dark:text-neutral-100">
+      <span className="min-w-[2ch] text-center text-base font-semibold text-[#4c3823]">
         {quantity}
       </span>
       <button

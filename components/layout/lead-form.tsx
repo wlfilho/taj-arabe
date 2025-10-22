@@ -176,7 +176,7 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
 
                 {status === "success" && (
                   <p className="text-sm font-medium text-green-700">
-                    ✓ Obrigado! Em breve você receberá seu cupom especial.
+                    ✓ Cupom enviado com sucesso! Verifique seu e-mail.
                   </p>
                 )}
 

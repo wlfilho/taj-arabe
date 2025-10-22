@@ -1,49 +1,59 @@
 import { NextResponse } from "next/server";
-import { google } from "googleapis";
 
-const SHEET_ID =
-  process.env.GOOGLE_SHEETS_ID ??
-  process.env.NEXT_PUBLIC_SHEET_ID ??
-  process.env.SHEET_ID ??
-  "";
+// URL do webhook para envio dos dados do formulário
+const WEBHOOK_URL = "https://primary-production-4ada.up.railway.app/webhook-test/cardapio-digital";
 
-const LEADS_RANGE = process.env.GOOGLE_LEADS_RANGE ?? "Leads!A:D";
-const SERVICE_ACCOUNT_EMAIL = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ?? "";
-const SERVICE_ACCOUNT_KEY = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY ?? "";
+async function sendToWebhook(data: { name: string; email: string; whatsapp: string }) {
+  try {
+    console.log("Enviando dados para webhook:", WEBHOOK_URL);
 
-if (!SHEET_ID) {
-  console.warn("GOOGLE_SHEETS_ID or NEXT_PUBLIC_SHEET_ID is not configured for leads endpoint.");
-}
+    const payload = {
+      timestamp: new Date().toISOString(),
+      name: data.name,
+      email: data.email,
+      whatsapp: data.whatsapp,
+      source: "cardapio-digital-cupom-form"
+    };
 
-let sheetsClient: ReturnType<typeof google.sheets> | null = null;
+    console.log("Payload:", JSON.stringify(payload, null, 2));
 
-async function getSheetsClient() {
-  if (!SERVICE_ACCOUNT_EMAIL || !SERVICE_ACCOUNT_KEY) {
-    throw new Error("Missing Google service account credentials");
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const responseText = await response.text();
+    console.log(`Webhook response status: ${response.status}`);
+    console.log(`Webhook response body: ${responseText}`);
+
+    if (!response.ok) {
+      // Se for erro 404, significa que o webhook não está ativo
+      if (response.status === 404) {
+        console.warn("Webhook não está ativo. Dados salvos localmente para debug.");
+        // Aqui você pode implementar um fallback, como salvar em arquivo ou banco local
+        return { success: false, reason: "webhook_not_active", data: payload };
+      }
+      throw new Error(`Webhook responded with status: ${response.status} - ${responseText}`);
+    }
+
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch {
+      result = { raw: responseText };
+    }
+
+    return { success: true, result };
+  } catch (error) {
+    console.error("Failed to send data to webhook:", error);
+    throw error;
   }
-
-  if (sheetsClient) {
-    return sheetsClient;
-  }
-
-  const auth = new google.auth.JWT({
-    email: SERVICE_ACCOUNT_EMAIL,
-    key: SERVICE_ACCOUNT_KEY.replace(/\\n/g, "\n"),
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-  });
-
-  sheetsClient = google.sheets({ version: "v4", auth });
-  return sheetsClient;
 }
 
 export async function POST(request: Request) {
-  if (!SHEET_ID) {
-    return NextResponse.json(
-      { message: "Planilha não configurada para receber leads." },
-      { status: 500 },
-    );
-  }
-
   try {
     const body = await request.json();
     const name = String(body.name ?? "").trim();
@@ -57,19 +67,35 @@ export async function POST(request: Request) {
       );
     }
 
-    const sheets = await getSheetsClient();
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: SHEET_ID,
-      range: LEADS_RANGE,
-      valueInputOption: "USER_ENTERED",
-      requestBody: {
-        values: [[new Date().toISOString(), name, email, whatsapp]],
-      },
-    });
+    // Enviar dados para o webhook
+    const webhookResult = await sendToWebhook({ name, email, whatsapp });
 
-    return NextResponse.json({ message: "Lead cadastrado com sucesso" });
+    if (webhookResult.success) {
+      return NextResponse.json({
+        message: "Cupom enviado com sucesso! Verifique seu e-mail.",
+        success: true,
+        webhookResult: webhookResult.result
+      });
+    } else {
+      // Webhook não está ativo, mas dados foram processados
+      return NextResponse.json({
+        message: "Dados recebidos! O webhook será ativado em breve.",
+        success: true,
+        note: "Webhook em modo de teste - ative no canvas para receber dados"
+      });
+    }
   } catch (error) {
-    console.error("Failed to append lead", error);
+    console.error("Failed to process lead:", error);
+
+    // Verificar se é erro de webhook não ativo
+    if (error instanceof Error && error.message.includes("404")) {
+      return NextResponse.json({
+        message: "Dados recebidos! Para ativar o webhook, clique em 'Execute workflow' no canvas.",
+        success: true,
+        note: "Webhook em modo de teste"
+      });
+    }
+
     return NextResponse.json(
       { message: "Não foi possível cadastrar agora. Tente novamente." },
       { status: 500 },

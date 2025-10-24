@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { sendToWebhook } from "@/lib/webhook-service";
 
 interface LeadFormProps {
   sheetCity?: string;
@@ -49,16 +50,35 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
       setIsSubmitting(true);
       setStatus("idle");
 
-      const response = await fetch("/api/leads", {
+      const formData = { name, email, whatsapp };
+
+      // Enviar para a API interna (Google Sheets)
+      const internalResponse = await fetch("/api/leads", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, whatsapp }),
+        body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        throw new Error("Falha ao enviar lead");
+      // Enviar para o webhook externo
+      const webhookResult = await sendToWebhook({
+        ...formData,
+        source: "cupom-desconto",
+        city: sheetCity || null,
+      });
+
+      // Verificar se pelo menos uma das requisições foi bem-sucedida
+      if (!internalResponse.ok && !webhookResult.success) {
+        throw new Error("Falha ao enviar lead para ambos os destinos");
+      }
+
+      // Log de sucesso/erro para cada destino
+      if (!internalResponse.ok) {
+        console.warn("Falha ao enviar para Google Sheets:", await internalResponse.text());
+      }
+      if (!webhookResult.success) {
+        console.warn("Falha ao enviar para webhook:", webhookResult.error);
       }
 
       setStatus("success");
@@ -72,7 +92,7 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
         setStatus("idle");
       }, 2000);
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao enviar formulário:", error);
       setStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -176,7 +196,7 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
 
                 {status === "success" && (
                   <p className="text-sm font-medium text-green-700">
-                    ✓ Cupom enviado com sucesso! Verifique seu e-mail.
+                    ✓ Obrigado! Em breve você receberá seu cupom especial.
                   </p>
                 )}
 

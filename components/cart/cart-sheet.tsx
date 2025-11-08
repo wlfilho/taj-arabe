@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { X } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { cn, formatCurrency } from "@/lib/utils";
 
 import { CartItemRow } from "./cart-item-row";

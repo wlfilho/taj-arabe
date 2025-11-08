@@ -9,6 +9,7 @@ export type SiteConfig = {
   state: string;
   instagram: string;
   facebook: string;
+  formularioCupom: boolean;
 };
 
 export type SiteConfigWithComputed = SiteConfig & {

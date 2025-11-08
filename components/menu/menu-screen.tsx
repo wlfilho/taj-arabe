@@ -165,7 +165,7 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
         </div>
       )}
 
-      <LeadForm sheetCity={config.city} />
+      {config.formularioCupom && <LeadForm sheetCity={config.city} />}
 
       <ProductDetailDialog
         item={selectedItem}

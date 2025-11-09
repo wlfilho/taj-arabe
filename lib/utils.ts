@@ -46,7 +46,7 @@ export function normalizeImageSrc(imageUrl: string | null | undefined): string |
   }
 
   // Se começar com /public, remove (normalização para Next.js)
-  let normalized = trimmed.startsWith("/public") 
+  const normalized = trimmed.startsWith("/public") 
     ? trimmed.replace(/^\/public/, "") 
     : trimmed;
 

@@ -65,6 +65,15 @@ export function normalizeImageSrc(imageUrl: string | null | undefined): string |
 }
 
 /**
+ * Verifica se uma URL de imagem é local (arquivo estático na pasta public)
+ */
+export function isLocalImage(src: string): boolean {
+  if (!src) return false;
+  // Imagens locais começam com / e não são URLs HTTP/HTTPS
+  return src.startsWith("/") && !src.startsWith("//") && !isValidHttpUrl(src);
+}
+
+/**
  * Retorna o src da imagem, usando placeholder como fallback
  */
 export function getImageSrc(imageUrl: string | null | undefined, placeholder = "/images/placeholder-prato.svg"): string {

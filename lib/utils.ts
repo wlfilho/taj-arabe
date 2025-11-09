@@ -25,3 +25,49 @@ export function isValidHttpUrl(value: string | null | undefined): value is strin
     return false;
   }
 }
+
+/**
+ * Normaliza e valida o caminho/URL da imagem
+ * - Aceita URLs HTTP/HTTPS (externas)
+ * - Aceita caminhos relativos que começam com / (arquivos locais na pasta public)
+ * - Remove /public do início se presente (normalização para Next.js)
+ * - Retorna o caminho normalizado ou null se inválido
+ */
+export function normalizeImageSrc(imageUrl: string | null | undefined): string | null {
+  if (!imageUrl || !imageUrl.trim()) {
+    return null;
+  }
+
+  const trimmed = imageUrl.trim();
+
+  // Se for uma URL HTTP/HTTPS válida, retorna como está
+  if (isValidHttpUrl(trimmed)) {
+    return trimmed;
+  }
+
+  // Se começar com /public, remove (normalização para Next.js)
+  let normalized = trimmed.startsWith("/public") 
+    ? trimmed.replace(/^\/public/, "") 
+    : trimmed;
+
+  // Se for um caminho relativo válido (começa com /), retorna
+  if (normalized.startsWith("/")) {
+    return normalized;
+  }
+
+  // Se não começar com /, adiciona (assumindo que é um caminho relativo)
+  if (!normalized.startsWith("http") && !normalized.startsWith("//")) {
+    return `/${normalized}`;
+  }
+
+  // Caso contrário, retorna null (inválido)
+  return null;
+}
+
+/**
+ * Retorna o src da imagem, usando placeholder como fallback
+ */
+export function getImageSrc(imageUrl: string | null | undefined, placeholder = "/images/placeholder-prato.svg"): string {
+  const normalized = normalizeImageSrc(imageUrl);
+  return normalized || placeholder;
+}

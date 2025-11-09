@@ -5,7 +5,7 @@ import { Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { QuantitySelector } from "@/components/ui/quantity-selector";
-import { cn, formatCurrency, isValidHttpUrl } from "@/lib/utils";
+import { cn, formatCurrency, getImageSrc } from "@/lib/utils";
 import type { CartLine } from "@/types/cart";
 
 interface CartItemRowProps {
@@ -16,9 +16,7 @@ interface CartItemRowProps {
 }
 
 export function CartItemRow({ line, onRemove, onQuantityChange, className }: CartItemRowProps) {
-  const imageSrc = isValidHttpUrl(line.item.imageUrl)
-    ? line.item.imageUrl
-    : "/images/placeholder-prato.svg";
+  const imageSrc = getImageSrc(line.item.imageUrl);
   const subtotal = line.item.price * line.quantity;
 
   return (

@@ -5,7 +5,7 @@ import { ShoppingCart, Eye } from "lucide-react";
 
 import type { MenuItem } from "@/types/menu";
 import { Button } from "@/components/ui/button";
-import { cn, formatCurrency, isValidHttpUrl } from "@/lib/utils";
+import { cn, formatCurrency, getImageSrc } from "@/lib/utils";
 
 interface ProductCardProps {
   item: MenuItem;
@@ -14,9 +14,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ item, onSelect, onAddToCart }: ProductCardProps) {
-  const imageSrc = isValidHttpUrl(item.imageUrl)
-    ? item.imageUrl
-    : "/images/placeholder-prato.svg";
+  const imageSrc = getImageSrc(item.imageUrl);
   const itemCode = item.id
     .replace(/[^0-9A-Za-z]/g, "")
     .toUpperCase()

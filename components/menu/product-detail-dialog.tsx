@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { QuantitySelector } from "@/components/ui/quantity-selector";
-import { cn, formatCurrency, isValidHttpUrl } from "@/lib/utils";
+import { cn, formatCurrency, getImageSrc } from "@/lib/utils";
 import type { MenuItem } from "@/types/menu";
 
 interface ProductDetailDialogProps {
@@ -46,9 +46,7 @@ export function ProductDetailDialog({ item, onClose, onAddToCart }: ProductDetai
     return null;
   }
 
-  const imageSrc = isValidHttpUrl(item.imageUrl)
-    ? item.imageUrl
-    : "/images/placeholder-prato.svg";
+  const imageSrc = getImageSrc(item.imageUrl);
   const subtotal = formatCurrency(item.price * quantity);
 
   return (

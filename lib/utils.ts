@@ -13,7 +13,7 @@ export function formatCurrency(value: number, locale = "pt-BR", currency = "BRL"
   });
 }
 
-export function isValidHttpUrl(value: string | null | undefined): value is string {
+export function isValidHttpUrl(value: string | null | undefined): boolean {
   if (!value) {
     return false;
   }
@@ -34,21 +34,28 @@ export function isValidHttpUrl(value: string | null | undefined): value is strin
  * - Retorna o caminho normalizado ou null se inválido
  */
 export function normalizeImageSrc(imageUrl: string | null | undefined): string | null {
-  if (!imageUrl || !imageUrl.trim()) {
+  if (!imageUrl) {
     return null;
   }
 
-  const trimmed: string = imageUrl.trim();
+  const trimmed = imageUrl.trim();
+  if (!trimmed) {
+    return null;
+  }
 
   // Se for uma URL HTTP/HTTPS válida, retorna como está
-  if (isValidHttpUrl(trimmed)) {
+  const isHttpUrl = isValidHttpUrl(trimmed);
+  if (isHttpUrl) {
     return trimmed;
   }
 
   // Se começar com /public, remove (normalização para Next.js)
-  const normalized: string = trimmed.startsWith("/public") 
-    ? trimmed.replace(/^\/public/, "") 
-    : trimmed;
+  let normalized: string;
+  if (trimmed.startsWith("/public")) {
+    normalized = trimmed.replace(/^\/public/, "");
+  } else {
+    normalized = trimmed;
+  }
 
   // Se for um caminho relativo válido (começa com /), retorna
   if (normalized.startsWith("/")) {

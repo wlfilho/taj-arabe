@@ -38,7 +38,7 @@ export function normalizeImageSrc(imageUrl: string | null | undefined): string |
     return null;
   }
 
-  const trimmed = imageUrl.trim();
+  const trimmed: string = imageUrl.trim();
 
   // Se for uma URL HTTP/HTTPS válida, retorna como está
   if (isValidHttpUrl(trimmed)) {
@@ -46,7 +46,7 @@ export function normalizeImageSrc(imageUrl: string | null | undefined): string |
   }
 
   // Se começar com /public, remove (normalização para Next.js)
-  const normalized = trimmed.startsWith("/public") 
+  const normalized: string = trimmed.startsWith("/public") 
     ? trimmed.replace(/^\/public/, "") 
     : trimmed;
 

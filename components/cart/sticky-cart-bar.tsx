@@ -1,15 +1,33 @@
-"use client";
-
+import { useEffect, useState } from "react";
 import { ShoppingCart } from "lucide-react";
 
 import { useCart } from "@/components/cart/cart-provider";
-import { formatCurrency } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 
 export function StickyCartBar() {
     const { itemCount, total, toggleCart } = useCart();
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsVisible(window.scrollY > 100);
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        handleScroll(); // Check initial state
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#e7dccd] bg-[#fdf7ef] px-4 py-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <div
+            className={cn(
+                "fixed bottom-0 left-0 right-0 z-50 border-t border-[#e7dccd] bg-[#fdf7ef] px-4 py-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] transition-transform duration-300",
+                isVisible ? "translate-y-0" : "translate-y-full",
+            )}
+        >
             <div className="container-responsive flex items-center justify-between">
                 <div className="flex flex-col">
                     {itemCount === 0 ? (

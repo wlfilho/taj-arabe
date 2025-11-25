@@ -105,6 +105,13 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
     return data.categories;
   }, [filteredItems, data.categories, search]);
 
+  // Set initial active category
+  useEffect(() => {
+    if (!activeCategory && data.categories.length > 0) {
+      setActiveCategory(data.categories[0].name);
+    }
+  }, [activeCategory, data.categories, setActiveCategory]);
+
   // Scroll Spy Implementation
   useEffect(() => {
     // Don't spy if searching

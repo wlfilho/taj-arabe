@@ -21,7 +21,7 @@ export function CategoryTabs({
   onSearchClick,
   className,
 }: CategoryTabsProps) {
-  const items = [ALL_CATEGORY, ...categories];
+  const items = categories;
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);

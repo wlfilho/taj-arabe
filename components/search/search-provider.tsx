@@ -16,7 +16,7 @@ const SearchContext = createContext<SearchContextValue | null>(null);
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [search, setSearch] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState("Todos");
+  const [activeCategory, setActiveCategory] = useState("");
 
   const toggleSearch = (open?: boolean) => {
     setIsSearchOpen((prev) => (open !== undefined ? open : !prev));

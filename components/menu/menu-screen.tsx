@@ -133,7 +133,7 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
         activeCategory={activeCategory}
         onSelect={setActiveCategory}
         onSearchClick={() => toggleSearch()}
-        className="sticky top-0 z-30 bg-[#fdf7ef]"
+        className="sticky top-[80px] z-30 bg-[#fdf7ef]"
       />
 
       {groupedItems.length ? (

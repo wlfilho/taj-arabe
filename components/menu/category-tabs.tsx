@@ -1,13 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 
 interface CategoryTabsProps {
   categories: string[];
   activeCategory: string;
   onSelect: (category: string) => void;
+  onSearchClick?: () => void;
   className?: string;
 }
 
@@ -17,6 +18,7 @@ export function CategoryTabs({
   categories,
   activeCategory,
   onSelect,
+  onSearchClick,
   className,
 }: CategoryTabsProps) {
   const items = [ALL_CATEGORY, ...categories];
@@ -84,6 +86,17 @@ export function CategoryTabs({
         )}
       >
         <div className="flex min-w-max items-center gap-2 px-4 sm:px-12">
+          {/* Search Button */}
+          {onSearchClick && (
+            <button
+              type="button"
+              onClick={onSearchClick}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e7dccd] bg-white text-[#6a5336] shadow-sm transition hover:border-[#d3a06f] hover:text-[#b37944]"
+              aria-label="Buscar en el menú"
+            >
+              <Search className="h-5 w-5" aria-hidden />
+            </button>
+          )}
           {items.map((category) => {
             const isActive = category === activeCategory;
             return (

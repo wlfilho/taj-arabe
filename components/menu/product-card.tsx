@@ -49,28 +49,13 @@ export function ProductCard({ item, onSelect, onAddToCart }: ProductCardProps) {
           <span className="text-xl font-semibold text-[#b37944]">
             {formatCurrency(item.price)}
           </span>
-          <div className="flex gap-2">
-            {onSelect && (
-              <Button
-                variant="secondary"
-                className="h-10 px-4"
-                onClick={() => onSelect(item)}
-              >
-                <Eye className="h-4 w-4" aria-hidden />
-                <span className="sr-only sm:not-sr-only">Opciones</span>
-              </Button>
-            )}
-            {onAddToCart && (
-              <Button
-                className="h-10 px-6"
-                onClick={() => onAddToCart(item)}
-                disabled={!item.available}
-              >
-                <ShoppingCart className="h-4 w-4" aria-hidden />
-                <span className="sr-only sm:not-sr-only">Agregar</span>
-              </Button>
-            )}
-          </div>
+          <Button
+            className="h-10 px-6"
+            onClick={() => onSelect?.(item)}
+            disabled={!item.available}
+          >
+            Ver más
+          </Button>
         </div>
       </div>
       {!item.available && (

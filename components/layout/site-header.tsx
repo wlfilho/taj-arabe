@@ -55,14 +55,14 @@ export function SiteHeader({ config }: SiteHeaderProps) {
 
       <div className="container-responsive flex items-center justify-between gap-4 py-6">
         <Link href="/" className="flex items-center gap-4">
-          {config.logoUrl ? (
-            <div className="relative h-14 w-14 overflow-hidden rounded-2xl">
+          {config.logoUrl && config.logoUrl.trim() ? (
+            <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white">
               <Image
-                src={getImageSrc(config.logoUrl, "")}
+                src={config.logoUrl}
                 alt={config.restaurantName}
                 fill
                 sizes="56px"
-                className="object-cover"
+                className="object-contain"
                 priority
                 unoptimized
               />
@@ -82,14 +82,6 @@ export function SiteHeader({ config }: SiteHeaderProps) {
           </div>
         </Link>
         <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => toggleSearch()}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e7dccd] bg-white/90 text-[#6a5336] shadow-sm transition hover:border-[#d3a06f] hover:text-[#b37944]"
-            aria-label="Buscar en el menú"
-          >
-            <Search className="h-5 w-5" aria-hidden />
-          </button>
           <CartButton />
         </div>
       </div>

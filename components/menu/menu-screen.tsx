@@ -68,7 +68,7 @@ function filterItems({ items }: MenuData, search: string, category: string) {
 }
 
 export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScreenProps) {
-  const { search } = useSearch();
+  const { search, toggleSearch } = useSearch();
   const [activeCategory, setActiveCategory] = useState(ALL_CATEGORY);
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
@@ -132,6 +132,7 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
         categories={categories}
         activeCategory={activeCategory}
         onSelect={setActiveCategory}
+        onSearchClick={() => toggleSearch()}
       />
 
       {groupedItems.length ? (

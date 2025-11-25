@@ -7,6 +7,7 @@ import { Search } from "lucide-react";
 import { CartButton } from "@/components/cart/cart-button";
 import { SearchBarHeader } from "@/components/search/search-bar-header";
 import { useSearch } from "@/components/search/search-provider";
+import { getImageSrc } from "@/lib/utils";
 import type { SiteConfigWithComputed } from "@/types/config";
 
 interface SiteHeaderProps {
@@ -57,12 +58,13 @@ export function SiteHeader({ config }: SiteHeaderProps) {
           {config.logoUrl ? (
             <div className="relative h-14 w-14 overflow-hidden rounded-2xl">
               <Image
-                src={config.logoUrl}
+                src={getImageSrc(config.logoUrl, "")}
                 alt={config.restaurantName}
                 fill
                 sizes="56px"
                 className="object-cover"
                 priority
+                unoptimized
               />
             </div>
           ) : (

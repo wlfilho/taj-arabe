@@ -40,14 +40,6 @@ export function ProductCard({ item, onSelect, onAddToCart }: ProductCardProps) {
       </div>
       <div className="flex flex-1 flex-col justify-between gap-3">
         <div className="space-y-1">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-[0.4em] text-[#c2aa8b]">
-              {item.category}
-            </span>
-            <span className="text-[11px] font-medium text-[#d1bda0]">
-              #{itemCode}
-            </span>
-          </div>
           <h3 className="text-lg font-semibold text-[#4c3823]">{item.name}</h3>
           {item.description && (
             <p className="text-sm text-[#8d7357] line-clamp-2">{item.description}</p>

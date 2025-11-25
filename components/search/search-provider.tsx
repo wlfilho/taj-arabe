@@ -7,6 +7,8 @@ interface SearchContextValue {
   setSearch: (value: string) => void;
   isSearchOpen: boolean;
   toggleSearch: (open?: boolean) => void;
+  activeCategory: string;
+  setActiveCategory: (category: string) => void;
 }
 
 const SearchContext = createContext<SearchContextValue | null>(null);
@@ -14,13 +16,23 @@ const SearchContext = createContext<SearchContextValue | null>(null);
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [search, setSearch] = useState("");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("Todos");
 
   const toggleSearch = (open?: boolean) => {
     setIsSearchOpen((prev) => (open !== undefined ? open : !prev));
   };
 
   return (
-    <SearchContext.Provider value={{ search, setSearch, isSearchOpen, toggleSearch }}>
+    <SearchContext.Provider
+      value={{
+        search,
+        setSearch,
+        isSearchOpen,
+        toggleSearch,
+        activeCategory,
+        setActiveCategory,
+      }}
+    >
       {children}
     </SearchContext.Provider>
   );

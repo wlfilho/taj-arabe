@@ -10,13 +10,16 @@ import { useSearch } from "@/components/search/search-provider";
 import { getImageSrc } from "@/lib/utils";
 import type { SiteConfigWithComputed } from "@/types/config";
 
+import { CategoryTabs } from "@/components/menu/category-tabs";
+
 interface SiteHeaderProps {
   config: SiteConfigWithComputed;
+  categories?: string[];
 }
 
-export function SiteHeader({ config }: SiteHeaderProps) {
+export function SiteHeader({ config, categories = [] }: SiteHeaderProps) {
   const whatsappLink = config.whatsappLink;
-  const { toggleSearch } = useSearch();
+  const { toggleSearch, activeCategory, setActiveCategory } = useSearch();
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#efe3d2] bg-[#fdf7ef]">
@@ -53,7 +56,7 @@ export function SiteHeader({ config }: SiteHeaderProps) {
         </div>
       </div>
 
-      <div className="container-responsive flex items-center justify-between gap-4 py-6">
+      <div className="container-responsive flex items-center justify-between gap-4 py-3">
         <Link href="/" className="flex items-center gap-4">
           {config.logoUrl && config.logoUrl.trim() ? (
             <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white">
@@ -72,6 +75,15 @@ export function SiteHeader({ config }: SiteHeaderProps) {
             {config.restaurantName || "Restaurante"}
           </h1>
         </Link>
+      </div>
+
+      <div className="container-responsive pb-2">
+        <CategoryTabs
+          categories={categories}
+          activeCategory={activeCategory}
+          onSelect={setActiveCategory}
+          onSearchClick={() => toggleSearch()}
+        />
       </div>
 
       <SearchBarHeader />

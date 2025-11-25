@@ -8,10 +8,12 @@ import { getMenuData } from "@/lib/menu-service";
 export default async function HomePage() {
   const [data, config] = await Promise.all([getMenuData(), getSiteConfig()]);
 
+  const categories = data.categories.map((category) => category.name);
+
   return (
     <SearchProvider>
       <div className="flex min-h-screen flex-col bg-[#f9f3ea]">
-        <SiteHeader config={config} />
+        <SiteHeader config={config} categories={categories} />
         <main className="flex-1 py-10 sm:py-16">
           <div className="container-responsive">
             <MenuScreen data={data} config={config} />

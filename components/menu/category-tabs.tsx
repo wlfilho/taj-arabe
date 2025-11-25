@@ -91,10 +91,10 @@ export function CategoryTabs({
             <button
               type="button"
               onClick={onSearchClick}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e7dccd] bg-white text-[#6a5336] shadow-sm transition hover:border-[#d3a06f] hover:text-[#b37944]"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-[#e7dccd] bg-white text-[#6a5336] shadow-sm transition hover:border-[#d3a06f] hover:text-[#b37944]"
               aria-label="Buscar en el menú"
             >
-              <Search className="h-5 w-5" aria-hidden />
+              <Search className="h-4 w-4" aria-hidden />
             </button>
           )}
           {items.map((category) => {
@@ -105,7 +105,7 @@ export function CategoryTabs({
                 type="button"
                 onClick={() => onSelect(category)}
                 className={cn(
-                  "whitespace-nowrap rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]",
+                  "whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]",
                   isActive
                     ? "border-transparent bg-[#c08954] text-white shadow"
                     : "border-[#e7dccd] bg-[#f6ecde] text-[#7b5f3d] hover:border-[#d3a06f] hover:text-[#b37944]",

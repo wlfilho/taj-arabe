@@ -68,8 +68,7 @@ function filterItems({ items }: MenuData, search: string, category: string) {
 }
 
 export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScreenProps) {
-  const { search, toggleSearch } = useSearch();
-  const [activeCategory, setActiveCategory] = useState(ALL_CATEGORY);
+  const { search, activeCategory } = useSearch();
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null);
 
   const { addItem, toggleCart } = useCart();
@@ -77,11 +76,6 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
   const filteredItems = useMemo(
     () => filterItems(data, search, activeCategory),
     [data, search, activeCategory],
-  );
-
-  const categories = useMemo(
-    () => data.categories.map((category) => category.name),
-    [data.categories],
   );
 
   const groupedItems = useMemo(() => {
@@ -128,14 +122,6 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
 
   return (
     <div className="flex flex-col gap-8">
-      <CategoryTabs
-        categories={categories}
-        activeCategory={activeCategory}
-        onSelect={setActiveCategory}
-        onSearchClick={() => toggleSearch()}
-        className="sticky top-[80px] z-30 bg-[#fdf7ef]"
-      />
-
       {groupedItems.length ? (
         <div className={cn("flex flex-col gap-14")}
         >

@@ -65,7 +65,7 @@ export function ProductCard({ item, onSelect, onAddToCart }: ProductCardProps) {
                 onClick={() => onSelect(item)}
               >
                 <Eye className="h-4 w-4" aria-hidden />
-                <span className="sr-only sm:not-sr-only">Opções</span>
+                <span className="sr-only sm:not-sr-only">Opciones</span>
               </Button>
             )}
             {onAddToCart && (
@@ -75,7 +75,7 @@ export function ProductCard({ item, onSelect, onAddToCart }: ProductCardProps) {
                 disabled={!item.available}
               >
                 <ShoppingCart className="h-4 w-4" aria-hidden />
-                <span className="sr-only sm:not-sr-only">Add</span>
+                <span className="sr-only sm:not-sr-only">Agregar</span>
               </Button>
             )}
           </div>
@@ -83,7 +83,7 @@ export function ProductCard({ item, onSelect, onAddToCart }: ProductCardProps) {
       </div>
       {!item.available && (
         <span className="absolute right-4 top-4 rounded-full bg-[#d3a06f] px-3 py-1 text-xs font-semibold text-white">
-          Indisponível
+          No disponible
         </span>
       )}
     </article>

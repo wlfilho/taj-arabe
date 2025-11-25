@@ -51,7 +51,7 @@ export function CartSheet() {
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm px-4 py-6"
       role="dialog"
       aria-modal="true"
-      aria-label="Carrinho de compras"
+      aria-label="Carrito de compras"
       onClick={() => toggleCart(false)}
     >
       <div
@@ -61,17 +61,17 @@ export function CartSheet() {
         <header className="flex items-center justify-between border-b border-[#e7dccd] bg-[#f6ecde]/90 px-6 py-5 backdrop-blur">
           <div>
             <h2 className="text-xl font-semibold text-[#4c3823]">
-              Seu pedido
+              Tu pedido
             </h2>
             <p className="text-sm text-[#9a8263]">
-              {itemCount} item{itemCount === 1 ? "" : "s"} no carrinho
+              {itemCount} artículo{itemCount === 1 ? "" : "s"} en el carrito
             </p>
           </div>
           <button
             type="button"
             onClick={() => toggleCart(false)}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#6a5336] shadow hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]"
-            aria-label="Fechar carrinho"
+            aria-label="Cerrar carrito"
           >
             <X className="h-5 w-5" aria-hidden />
           </button>
@@ -80,7 +80,7 @@ export function CartSheet() {
         <div className="flex max-h-[50vh] flex-col gap-4 overflow-y-auto px-6 py-6">
           {items.length === 0 && (
             <div className="rounded-3xl border border-dashed border-[#e7dccd] bg-white/80 p-8 text-center text-[#9a8263]">
-              Seu carrinho está vazio. Adicione itens deliciosos ao pedido!
+              Tu carrito está vacío. ¡Agrega deliciosos artículos a tu pedido!
             </div>
           )}
 

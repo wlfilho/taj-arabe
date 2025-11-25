@@ -28,7 +28,7 @@ export function SearchBar({ value, onChange, className }: SearchBarProps) {
         id={id}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        placeholder="Buscar pratos..."
+        placeholder="Buscar platos..."
         className="border-none bg-transparent pl-3 pr-14 text-base text-[#6d5334] placeholder:text-[#b9a289] focus-visible:ring-0"
       />
       <span className="pointer-events-none absolute right-4 flex h-9 w-9 items-center justify-center rounded-full bg-[#d8c2a7] text-white">

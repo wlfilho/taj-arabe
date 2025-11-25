@@ -18,11 +18,11 @@ const geistMono = Geist_Mono({
 });
 
 const defaultDescription =
-  "Explore nosso cardápio digital com categorias, busca, carrinho e envio rápido pelo WhatsApp.";
+  "Explora nuestro menú digital con categorías, búsqueda, carrito y envío rápido por WhatsApp.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getSiteConfig();
-  const restaurantName = config.restaurantName || "Cardápio";
+  const restaurantName = config.restaurantName || "Menú";
 
   return {
     metadataBase: new URL("https://cardapio.example.com"),
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: defaultDescription,
     keywords: [
-      "cardápio digital",
+      "menú digital",
       restaurantName,
       "restaurante",
       "next.js",
@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
       title: restaurantName,
       description: defaultDescription,
       type: "website",
-      locale: "pt_BR",
+      locale: "es_CO",
       url: "https://cardapio.example.com",
       siteName: restaurantName,
       images: [
@@ -53,7 +53,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "/og-cardapio.png",
           width: 1200,
           height: 630,
-          alt: `Cardápio digital ${restaurantName}`,
+          alt: `Menú digital ${restaurantName}`,
         },
       ],
     },
@@ -81,7 +81,7 @@ export default async function RootLayout({
   const config = await getSiteConfig();
 
   return (
-    <html lang="pt-BR" suppressHydrationWarning>
+    <html lang="es-CO" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-[#f9f3ea] text-[#4c3823] antialiased transition-colors duration-300 selection:bg-[#f0e1cb] selection:text-[#4c3823]",

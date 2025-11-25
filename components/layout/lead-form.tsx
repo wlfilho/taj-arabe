@@ -104,10 +104,10 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
       <section className="rounded-3xl border border-[#e7dccd] bg-white/80 p-6 shadow-sm">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div className="space-y-2">
-            <h3 className="text-2xl font-semibold text-[#4c3823]">Ganhe um cupom de desconto</h3>
+            <h3 className="text-2xl font-semibold text-[#4c3823]">Obtén un cupón de descuento</h3>
             <p className="text-sm text-[#9a8263]">
-              Cadastre-se para receber novidades e promoções exclusivas
-              {sheetCity ? ` em ${sheetCity}` : ""}.
+              Regístrate para recibir novedades y promociones exclusivas
+              {sheetCity ? ` en ${sheetCity}` : ""}.
             </p>
           </div>
           <Button
@@ -115,7 +115,7 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
             onClick={() => setIsOpen(true)}
             className="w-full md:w-auto"
           >
-            Quero meu cupom
+            Quiero mi cupón
           </Button>
         </div>
       </section>
@@ -125,7 +125,7 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-6"
           role="dialog"
           aria-modal="true"
-          aria-label="Formulário de cupom de desconto"
+          aria-label="Formulario de cupón de descuento"
           onClick={() => setIsOpen(false)}
         >
           <div
@@ -136,7 +136,7 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
               type="button"
               onClick={() => setIsOpen(false)}
               className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#6a5336] shadow hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]"
-              aria-label="Fechar modal"
+              aria-label="Cerrar modal"
             >
               <X className="h-5 w-5" aria-hidden />
             </button>
@@ -144,38 +144,38 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
             <div className="flex flex-col gap-5 p-6">
               <div className="flex flex-col gap-2">
                 <h3 className="text-2xl font-semibold text-[#4c3823]">
-                  Ganhe um cupom de desconto
+                  Obtén un cupón de descuento
                 </h3>
                 <p className="text-sm text-[#9a8263]">
-                  Preencha seus dados para receber novidades e promoções exclusivas
-                  {sheetCity ? ` em ${sheetCity}` : ""}.
+                  Completa tus datos para recibir novedades y promociones exclusivas
+                  {sheetCity ? ` en ${sheetCity}` : ""}.
                 </p>
               </div>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name" className="text-sm font-medium text-[#4c3823]">
-                    Nome completo
+                    Nombre completo
                   </label>
                   <Input
                     id="name"
                     value={name}
                     onChange={(event) => setName(event.target.value)}
-                    placeholder="Digite seu nome completo"
+                    placeholder="Escribe tu nombre completo"
                     required
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
                   <label htmlFor="email" className="text-sm font-medium text-[#4c3823]">
-                    E-mail
+                    Correo electrónico
                   </label>
                   <Input
                     id="email"
                     type="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
-                    placeholder="seu@email.com"
+                    placeholder="tu@email.com"
                     required
                   />
                 </div>
@@ -196,13 +196,13 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
 
                 {status === "success" && (
                   <p className="text-sm font-medium text-green-700">
-                    ✓ Obrigado! Em breve você receberá seu cupom especial.
+                    ✓ ¡Gracias! Pronto recibirás tu cupón especial.
                   </p>
                 )}
 
                 {status === "error" && (
                   <p className="text-sm text-[#c76959]">
-                    Não foi possível cadastrar agora. Tente novamente em instantes.
+                    No fue posible registrarse ahora. Intenta nuevamente en unos momentos.
                   </p>
                 )}
 
@@ -211,7 +211,7 @@ export function LeadForm({ sheetCity }: LeadFormProps) {
                   disabled={isSubmitting}
                   className="h-12 text-base"
                 >
-                  {isSubmitting ? "Enviando..." : "Cadastrar e ganhar cupom"}
+                  {isSubmitting ? "Enviando..." : "Registrarse y obtener cupón"}
                 </Button>
               </form>
             </div>

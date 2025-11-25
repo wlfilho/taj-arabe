@@ -14,7 +14,7 @@ export function CartButton() {
       variant="ghost"
       className="relative h-10 w-10 rounded-full border border-[#e7dccd] bg-white/90 p-0 text-[#6a5336] shadow-sm hover:border-[#d3a06f] hover:text-[#b37944]"
       onClick={() => toggleCart(true)}
-      aria-label="Abrir carrinho"
+      aria-label="Abrir carrito"
     >
       <ShoppingCart className="h-5 w-5" aria-hidden />
       {itemCount > 0 && (

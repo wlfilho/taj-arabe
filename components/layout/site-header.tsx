@@ -20,11 +20,11 @@ export function SiteHeader({ config }: SiteHeaderProps) {
     <header className="sticky top-0 z-40 border-b border-[#efe3d2] bg-[#fdf7ef]">
       <div className="border-b border-[#f0e3d0] bg-[#f4e8d8]">
         <div className="container-responsive flex items-center justify-between py-2 text-sm text-[#7d6446]">
-          <span>Delícias árabes feitas com carinho todos os dias.</span>
+          <span>Delicias árabes hechas con cariño todos los días.</span>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 rounded-full bg-[#e9dcc9] px-3 py-1 text-xs font-semibold text-[#4f3b27]">
               <span className="h-2 w-2 rounded-full bg-[#33c24d]" aria-hidden />
-              Aberto até 23h
+              Abierto hasta las 23h
             </div>
             {whatsappLink ? (
               <a
@@ -32,7 +32,7 @@ export function SiteHeader({ config }: SiteHeaderProps) {
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-[#25d366] text-white shadow-sm transition hover:bg-[#1ebe57]"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Falar no WhatsApp"
+                aria-label="Hablar por WhatsApp"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -61,7 +61,7 @@ export function SiteHeader({ config }: SiteHeaderProps) {
               {config.restaurantName || "Restaurante"}
             </h1>
             <p className="text-sm text-[#87735b]">
-              Sabores árabes, temperos autorais e ingredientes frescos.
+              Sabores árabes, especias originales e ingredientes frescos.
             </p>
           </div>
         </Link>
@@ -70,7 +70,7 @@ export function SiteHeader({ config }: SiteHeaderProps) {
             type="button"
             onClick={() => toggleSearch()}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e7dccd] bg-white/90 text-[#6a5336] shadow-sm transition hover:border-[#d3a06f] hover:text-[#b37944]"
-            aria-label="Buscar no cardápio"
+            aria-label="Buscar en el menú"
           >
             <Search className="h-5 w-5" aria-hidden />
           </button>

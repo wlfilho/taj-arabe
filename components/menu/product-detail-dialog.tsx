@@ -54,7 +54,7 @@ export function ProductDetailDialog({ item, onClose, onAddToCart }: ProductDetai
       className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 px-4 pb-6 pt-10 sm:items-center sm:pb-16"
       role="dialog"
       aria-modal="true"
-      aria-label={`Detalhes do produto ${item.name}`}
+      aria-label={`Detalles del producto ${item.name}`}
       onClick={onClose}
     >
       <div
@@ -67,7 +67,7 @@ export function ProductDetailDialog({ item, onClose, onAddToCart }: ProductDetai
           type="button"
           onClick={onClose}
           className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#6a5336] shadow hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f]"
-          aria-label="Fechar detalhes"
+          aria-label="Cerrar detalles"
         >
           <X className="h-5 w-5" aria-hidden />
         </button>
@@ -111,7 +111,7 @@ export function ProductDetailDialog({ item, onClose, onAddToCart }: ProductDetai
             onClick={() => onAddToCart(item, quantity)}
             disabled={!item.available}
           >
-            {item.available ? "Adicionar ao pedido" : "Produto indisponível"}
+            {item.available ? "Agregar al pedido" : "Producto no disponible"}
           </Button>
         </div>
       </div>

@@ -56,7 +56,7 @@ export function CartItemRow({ line, onRemove, onQuantityChange, className }: Car
               variant="ghost"
               className="h-9 w-9 rounded-full border border-transparent text-[#c2aa8b] hover:border-[#e7dccd] hover:text-[#8f5827]"
               onClick={onRemove}
-              aria-label={`Remover ${line.item.name}`}
+              aria-label={`Eliminar ${line.item.name}`}
             >
               <Trash2 className="h-4 w-4" aria-hidden />
             </Button>

@@ -54,7 +54,7 @@ export function SearchBarHeader() {
               ref={inputRef}
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Buscar pratos, ingredientes ou bebidas..."
+              placeholder="Buscar platos, ingredientes o bebidas..."
               className="border-none bg-transparent px-3 py-3 text-base text-[#6d5334] placeholder:text-[#b9a289] focus-visible:ring-0"
             />
             {search && (
@@ -62,7 +62,7 @@ export function SearchBarHeader() {
                 type="button"
                 onClick={() => setSearch("")}
                 className="mr-2 flex h-8 w-8 items-center justify-center rounded-full text-[#c2aa8b] transition hover:bg-[#f0e1cb] hover:text-[#8f5827]"
-                aria-label="Limpar busca"
+                aria-label="Limpiar búsqueda"
               >
                 <X className="h-4 w-4" aria-hidden />
               </button>
@@ -75,7 +75,7 @@ export function SearchBarHeader() {
               setSearch("");
             }}
             className="flex h-10 w-10 items-center justify-center rounded-full border border-[#e7dccd] bg-white text-[#c2aa8b] transition hover:border-[#d3a06f] hover:text-[#8f5827]"
-            aria-label="Fechar busca"
+            aria-label="Cerrar búsqueda"
           >
             <X className="h-5 w-5" aria-hidden />
           </button>

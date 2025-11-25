@@ -36,13 +36,13 @@ export function QuantitySelector({
         className,
       )}
       role="group"
-      aria-label="Quantidade"
+      aria-label="Cantidad"
     >
       <button
         type="button"
         onClick={decrement}
         className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f3e7d6] text-[#9a8263] transition hover:bg-[#e8dcc7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f] disabled:opacity-50"
-        aria-label="Diminuir quantidade"
+        aria-label="Disminuir cantidad"
         disabled={quantity <= min}
       >
         <Minus className="h-4 w-4" aria-hidden />
@@ -54,7 +54,7 @@ export function QuantitySelector({
         type="button"
         onClick={increment}
         className="flex h-8 w-8 items-center justify-center rounded-full bg-[#c08954] text-white transition hover:bg-[#b37944] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d3a06f] disabled:opacity-50"
-        aria-label="Aumentar quantidade"
+        aria-label="Aumentar cantidad"
         disabled={quantity >= max}
       >
         <Plus className="h-4 w-4" aria-hidden />

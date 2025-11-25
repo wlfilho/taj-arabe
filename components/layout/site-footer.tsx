@@ -32,7 +32,7 @@ export function SiteFooter({ config }: SiteFooterProps) {
       <div className="container-responsive flex flex-col gap-4 text-center sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-1">
           <p className="font-semibold text-[#6d5334]">{config.restaurantName}</p>
-          <p>{config.formattedAddress || "Endereço informado em breve"}</p>
+          <p>{config.formattedAddress || "Dirección informada pronto"}</p>
         </div>
         <div className="flex flex-col items-center gap-3 sm:items-end">
           <div className="flex gap-3">
@@ -49,7 +49,7 @@ export function SiteFooter({ config }: SiteFooterProps) {
               </Link>
             ))}
           </div>
-          <p>&copy; {year} {config.restaurantName}. Feito para saborear bons momentos.</p>
+          <p>&copy; {year} {config.restaurantName}. Hecho para saborear buenos momentos.</p>
         </div>
       </div>
     </footer>

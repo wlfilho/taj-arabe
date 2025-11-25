@@ -36,7 +36,7 @@ export function SiteHeader({ config, categories = [] }: SiteHeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#efe3d2] bg-[#fdf7ef]">
+    <header className="z-40 bg-[#fdf7ef]">
       <div className="border-b border-[#f0e3d0] bg-[#f4e8d8]">
         <div className="container-responsive flex items-center justify-between py-2 text-sm text-[#7d6446]">
           <div className="flex items-center gap-2 rounded-full bg-[#e9dcc9] px-3 py-1 text-xs font-semibold text-[#4f3b27]">
@@ -70,37 +70,40 @@ export function SiteHeader({ config, categories = [] }: SiteHeaderProps) {
         </div>
       </div>
 
-      <div className="container-responsive flex items-center justify-between gap-4 py-3">
-        <Link href="/" className="flex items-center gap-4">
-          {config.logoUrl && config.logoUrl.trim() ? (
-            <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white">
-              <img
-                src={config.logoUrl}
-                alt={config.restaurantName}
-                className="h-full w-full object-contain"
-              />
-            </div>
-          ) : (
-            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f2debe] text-2xl">
-              🍽️
-            </span>
-          )}
-          <h1 className="text-2xl font-semibold text-[#4c3823]">
-            {config.restaurantName || "Restaurante"}
-          </h1>
-        </Link>
-      </div>
+      <div className="sticky top-0 z-40 border-b border-[#efe3d2] bg-[#fdf7ef]">
 
-      <div className="container-responsive pb-2">
-        <CategoryTabs
-          categories={categories}
-          activeCategory={activeCategory}
-          onSelect={handleCategoryClick}
-          onSearchClick={() => toggleSearch()}
-        />
-      </div>
+        <div className="container-responsive flex items-center justify-between gap-4 py-3">
+          <Link href="/" className="flex items-center gap-4">
+            {config.logoUrl && config.logoUrl.trim() ? (
+              <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-white">
+                <img
+                  src={config.logoUrl}
+                  alt={config.restaurantName}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+            ) : (
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f2debe] text-2xl">
+                🍽️
+              </span>
+            )}
+            <h1 className="text-2xl font-semibold text-[#4c3823]">
+              {config.restaurantName || "Restaurante"}
+            </h1>
+          </Link>
+        </div>
 
-      <SearchBarHeader />
+        <div className="container-responsive pb-2">
+          <CategoryTabs
+            categories={categories}
+            activeCategory={activeCategory}
+            onSelect={handleCategoryClick}
+            onSearchClick={() => toggleSearch()}
+          />
+        </div>
+
+        <SearchBarHeader />
+      </div>
     </header>
   );
 }

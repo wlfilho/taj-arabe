@@ -16,19 +16,19 @@ import { useCart } from "../cart/cart-provider";
 const CATEGORY_DETAILS: Record<string, { icon: string; description: string }> = {
   Entradas: {
     icon: "🥗",
-    description: "Sabores leves para abrir o apetite",
+    description: "Sabores ligeros para abrir el apetito",
   },
   "Pratos Principais": {
     icon: "🍽️",
-    description: "Receitas autorais preparadas na hora",
+    description: "Recetas originales preparadas al momento",
   },
   Sobremesas: {
     icon: "🍮",
-    description: "Doces artesanais com afeto",
+    description: "Dulces artesanales con cariño",
   },
   Bebidas: {
     icon: "🥤",
-    description: "Bebidas especiais para acompanhar",
+    description: "Bebidas especiales para acompañar",
   },
 };
 
@@ -140,7 +140,7 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
           {groupedItems.map((group) => {
             const details = CATEGORY_DETAILS[group.name] ?? {
               icon: "🍽️",
-              description: "Seleção especial do chef",
+              description: "Selección especial del chef",
             };
 
             return (
@@ -158,9 +158,9 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
         </div>
       ) : (
         <div className="rounded-3xl border border-dashed border-[#eadccb] bg-white/70 p-12 text-center shadow-sm">
-          <h2 className="text-xl font-semibold text-[#4c3823]">Nenhum item encontrado</h2>
+          <h2 className="text-xl font-semibold text-[#4c3823]">Ningún artículo encontrado</h2>
           <p className="mt-2 text-sm text-[#9a8263]">
-            Ajuste os filtros ou limpe a busca para visualizar o cardápio completo.
+            Ajusta los filtros o limpia la búsqueda para visualizar el menú completo.
           </p>
         </div>
       )}

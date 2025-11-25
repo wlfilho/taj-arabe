@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Search } from "lucide-react";
 
 import { CartButton } from "@/components/cart/cart-button";
@@ -53,9 +54,22 @@ export function SiteHeader({ config }: SiteHeaderProps) {
 
       <div className="container-responsive flex items-center justify-between gap-4 py-6">
         <Link href="/" className="flex items-center gap-4">
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f2debe] text-2xl">
-            🍽️
-          </span>
+          {config.logoUrl ? (
+            <div className="relative h-14 w-14 overflow-hidden rounded-2xl">
+              <Image
+                src={config.logoUrl}
+                alt={config.restaurantName}
+                fill
+                sizes="56px"
+                className="object-cover"
+                priority
+              />
+            </div>
+          ) : (
+            <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f2debe] text-2xl">
+              🍽️
+            </span>
+          )}
           <div>
             <h1 className="text-2xl font-semibold text-[#4c3823]">
               {config.restaurantName || "Restaurante"}

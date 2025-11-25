@@ -127,6 +127,7 @@ function buildConfig(csv: string): SiteConfig {
     state: getValue(["estado", "uf", "state"], ""),
     instagram: getValue(["instagram", "ig"], ""),
     facebook: getValue(["facebook", "fb"], ""),
+    logoUrl: getValue(["logo", "logourl", "logo url", "imagem"], ""),
     formularioCupom: false, // Será sobrescrito pela feature config se disponível
   };
 
@@ -144,14 +145,14 @@ function parseFeatureConfig(csv: string): { formularioCupom: boolean } {
   }
 
   const headers = parseCsvLine(headerLine).map(normalizeHeader);
-  
+
   // Procurar pela linha que contém "formulario cupom" ou "formulariocupom"
   for (const rowLine of rowLines) {
     const values = parseCsvLine(rowLine);
-    const recursoIndex = headers.findIndex((h) => 
+    const recursoIndex = headers.findIndex((h) =>
       h === "recurso" || h === "recursos" || h === "feature"
     );
-    const statusIndex = headers.findIndex((h) => 
+    const statusIndex = headers.findIndex((h) =>
       h === "status" || h === "ativo" || h === "enabled"
     );
 
@@ -161,13 +162,13 @@ function parseFeatureConfig(csv: string): { formularioCupom: boolean } {
 
       // Verificar se é a linha do formulário de cupom
       if (
-        recurso.includes("formulario") && 
+        recurso.includes("formulario") &&
         (recurso.includes("cupom") || recurso.includes("coupon"))
       ) {
         // Converter status para boolean (TRUE, true, 1, "true" = true, caso contrário false)
-        const formularioCupom = 
-          status === "true" || 
-          status === "1" || 
+        const formularioCupom =
+          status === "true" ||
+          status === "1" ||
           status === "verdadeiro" ||
           status === "sim" ||
           status === "yes";
@@ -201,7 +202,7 @@ async function loadConfig(): Promise<SiteConfigWithComputed> {
   try {
     const csv = await fetchConfigCsv();
     const config = buildConfig(csv);
-    
+
     // Buscar configurações de features (formulario cupom, etc)
     let featureConfig = { formularioCupom: false };
     try {
@@ -210,12 +211,12 @@ async function loadConfig(): Promise<SiteConfigWithComputed> {
     } catch (error) {
       console.warn("Failed to fetch feature config, using defaults", error);
     }
-    
+
     const configWithFeatures: SiteConfig = {
       ...config,
       formularioCupom: featureConfig.formularioCupom,
     };
-    
+
     return enrichConfig(configWithFeatures);
   } catch (error) {
     console.warn("Falling back to local config data", error);

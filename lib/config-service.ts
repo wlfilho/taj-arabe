@@ -26,16 +26,15 @@ function buildConfigUrl() {
   }
 
   const publishedSheetUrl = process.env.NEXT_PUBLIC_SHEET_URL ?? process.env.SHEET_URL;
-  if (publishedSheetUrl) {
+  if (publishedSheetUrl && CONFIG_GID) {
     try {
-      const url = new URL(publishedSheetUrl);
-      if (CONFIG_GID) {
-        url.searchParams.set("gid", CONFIG_GID);
+      // Extract the document ID from the published URL
+      const match = publishedSheetUrl.match(/\/d\/e\/([\w-]+)\//);
+      if (match) {
+        const docId = match[1];
+        // Use gviz format which supports GID parameter
+        return `https://docs.google.com/spreadsheets/d/e/${docId}/gviz/tq?tqx=out:csv&gid=${CONFIG_GID}`;
       }
-      if (!url.searchParams.has("output")) {
-        url.searchParams.set("output", "csv");
-      }
-      return url.toString();
     } catch (error) {
       console.warn("Failed to derive config URL from published sheet", error);
     }
@@ -47,6 +46,19 @@ function buildConfigUrl() {
 const CONFIG_URL = buildConfigUrl();
 
 function buildFeatureConfigUrl() {
+  const publishedSheetUrl = process.env.NEXT_PUBLIC_SHEET_URL ?? process.env.SHEET_URL;
+  if (publishedSheetUrl && FEATURE_CONFIG_GID) {
+    try {
+      const match = publishedSheetUrl.match(/\/d\/e\/([\w-]+)\//);
+      if (match) {
+        const docId = match[1];
+        return `https://docs.google.com/spreadsheets/d/e/${docId}/gviz/tq?tqx=out:csv&gid=${FEATURE_CONFIG_GID}`;
+      }
+    } catch (error) {
+      console.warn("Failed to derive feature config URL from published sheet", error);
+    }
+  }
+
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${FEATURE_CONFIG_GID}`;
 }
 

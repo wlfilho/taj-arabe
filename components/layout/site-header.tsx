@@ -22,7 +22,10 @@ export function SiteHeader({ config }: SiteHeaderProps) {
     <header className="sticky top-0 z-40 border-b border-[#efe3d2] bg-[#fdf7ef]">
       <div className="border-b border-[#f0e3d0] bg-[#f4e8d8]">
         <div className="container-responsive flex items-center justify-between py-2 text-sm text-[#7d6446]">
-          <span>Delicias árabes hechas con cariño todos los días.</span>
+          <div className="flex items-center gap-2 rounded-full bg-[#e9dcc9] px-3 py-1 text-xs font-semibold text-[#4f3b27]">
+            <span className="h-2 w-2 rounded-full bg-[#33c24d]" aria-hidden />
+            Abierto hasta las 23h
+          </div>
           <div className="flex items-center gap-2">
             {whatsappLink ? (
               <a
@@ -64,15 +67,9 @@ export function SiteHeader({ config }: SiteHeaderProps) {
               🍽️
             </span>
           )}
-          <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-semibold text-[#4c3823]">
-              {config.restaurantName || "Restaurante"}
-            </h1>
-            <div className="flex items-center gap-2 rounded-full bg-[#e9dcc9] px-3 py-1 text-xs font-semibold text-[#4f3b27]">
-              <span className="h-2 w-2 rounded-full bg-[#33c24d]" aria-hidden />
-              Abierto hasta las 23h
-            </div>
-          </div>
+          <h1 className="text-2xl font-semibold text-[#4c3823]">
+            {config.restaurantName || "Restaurante"}
+          </h1>
         </Link>
         <div className="flex items-center gap-3">
           <CartButton />

@@ -7,10 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatCurrency(value: number, locale = "pt-BR", currency = "BRL") {
   return value.toLocaleString(locale, {
-    style: "currency",
-    currency,
     minimumFractionDigits: 2,
-  });
+    maximumFractionDigits: 2,
+  }).replace(/^/, "$ ");
 }
 
 export function isValidHttpUrl(value: string | null | undefined): boolean {

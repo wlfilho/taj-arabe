@@ -18,15 +18,17 @@ export function MenuSection({ title, description, icon, items, onSelect, onAddTo
 
   return (
     <section
-      aria-labelledby={`categoria-${title}`}
-      className="scroll-mt-28 space-y-6"
+      id={`categoria-${title}`}
+      aria-labelledby={`heading-${title}`}
+      className="scroll-mt-32 space-y-6"
       data-menu-section
+      data-category={title}
     >
       <header className="flex flex-col gap-1">
         <div className="flex items-center gap-3">
           {icon ? <span className="text-xl" aria-hidden>{icon}</span> : null}
           <h2
-            id={`categoria-${title}`}
+            id={`heading-${title}`}
             className="text-2xl font-semibold text-[#4c3823]"
           >
             {title}

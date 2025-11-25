@@ -21,6 +21,20 @@ export function SiteHeader({ config, categories = [] }: SiteHeaderProps) {
   const whatsappLink = config.whatsappLink;
   const { toggleSearch, activeCategory, setActiveCategory } = useSearch();
 
+  const handleCategoryClick = (category: string) => {
+    setActiveCategory(category);
+
+    if (category === "Todos") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    const element = document.getElementById(`categoria-${category}`);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header className="sticky top-0 z-40 border-b border-[#efe3d2] bg-[#fdf7ef]">
       <div className="border-b border-[#f0e3d0] bg-[#f4e8d8]">
@@ -81,7 +95,7 @@ export function SiteHeader({ config, categories = [] }: SiteHeaderProps) {
         <CategoryTabs
           categories={categories}
           activeCategory={activeCategory}
-          onSelect={setActiveCategory}
+          onSelect={handleCategoryClick}
           onSearchClick={() => toggleSearch()}
         />
       </div>

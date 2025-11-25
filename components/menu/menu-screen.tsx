@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 import { LeadForm } from "@/components/layout/lead-form";
 import { CategoryTabs, ALL_CATEGORY } from "@/components/menu/category-tabs";
@@ -73,13 +73,16 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
 
   const { addItem, toggleCart } = useCart();
 
+  const { setActiveCategory } = useSearch();
+
   const filteredItems = useMemo(
-    () => filterItems(data, search, activeCategory),
-    [data, search, activeCategory],
+    () => filterItems(data, search, ALL_CATEGORY), // Always pass ALL_CATEGORY to disable category filtering here
+    [data, search],
   );
 
   const groupedItems = useMemo(() => {
-    if (activeCategory !== ALL_CATEGORY || search.trim()) {
+    // If searching, filter and group
+    if (search.trim()) {
       const group: Record<string, MenuItem[]> = {};
 
       filteredItems.forEach((item) => {
@@ -98,8 +101,41 @@ export function MenuScreen({ data, config, onSelectItem, onAddToCart }: MenuScre
         }));
     }
 
+    // If not searching, show all categories in order
     return data.categories;
-  }, [filteredItems, data.categories, activeCategory, search]);
+  }, [filteredItems, data.categories, search]);
+
+  // Scroll Spy Implementation
+  useEffect(() => {
+    // Don't spy if searching
+    if (search.trim()) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the first intersecting entry
+        const visibleSection = entries.find((entry) => entry.isIntersecting);
+
+        if (visibleSection) {
+          const category = visibleSection.target.getAttribute("data-category");
+          if (category) {
+            setActiveCategory(category);
+          }
+        }
+      },
+      {
+        rootMargin: "-20% 0px -60% 0px", // Trigger when section is near the top
+        threshold: 0,
+      }
+    );
+
+    const sections = document.querySelectorAll("[data-menu-section]");
+    sections.forEach((section) => observer.observe(section));
+
+    return () => {
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, [search, setActiveCategory]);
+
 
   const handleSelectItem = (item: MenuItem) => {
     setSelectedItem(item);

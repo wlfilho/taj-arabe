@@ -61,6 +61,28 @@ export function CategoryTabs({
     });
   };
 
+  const itemsRef = useRef<Map<string, HTMLButtonElement> | null>(null);
+
+  function getMap() {
+    if (!itemsRef.current) {
+      itemsRef.current = new Map();
+    }
+    return itemsRef.current;
+  }
+
+  useEffect(() => {
+    const map = getMap();
+    const node = map.get(activeCategory);
+
+    if (node) {
+      node.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [activeCategory]);
+
   return (
     <div className="relative">
       {/* Seta Esquerda - apenas desktop */}
@@ -102,6 +124,14 @@ export function CategoryTabs({
             return (
               <button
                 key={category}
+                ref={(node) => {
+                  const map = getMap();
+                  if (node) {
+                    map.set(category, node);
+                  } else {
+                    map.delete(category);
+                  }
+                }}
                 type="button"
                 onClick={() => onSelect(category)}
                 className={cn(

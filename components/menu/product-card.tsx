@@ -50,11 +50,12 @@ export function ProductCard({ item, onSelect, onAddToCart }: ProductCardProps) {
             {formatCurrency(item.price)}
           </span>
           <Button
-            className="h-10 px-6"
+            className="h-10 px-4 rounded-md bg-[#e9dcc9] text-[#4f3b27]"
             onClick={() => onSelect?.(item)}
             disabled={!item.available}
+            aria-label="Ver detalles del producto"
           >
-            Ver más
+            <ShoppingCart className="h-5 w-5" aria-hidden />
           </Button>
         </div>
       </div>

@@ -48,6 +48,7 @@ export function SiteHeader({ config }: SiteHeaderProps) {
                 </svg>
               </a>
             ) : null}
+            <CartButton />
           </div>
         </div>
       </div>

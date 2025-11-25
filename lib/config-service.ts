@@ -8,8 +8,34 @@ const DEFAULT_SHEET_ID = "1HSW04exyEjR9HdYQN5njz0k6Gssxb48l_7HWiPyXw6s";
 const DEFAULT_CONFIG_GID = "1";
 const DEFAULT_FEATURE_CONFIG_GID = "1043160202";
 
+// Try to extract sheet ID from published URL if available
+function extractSheetIdFromUrl(url: string): string | null {
+  try {
+    // Match pattern: /spreadsheets/d/e/PUBLISHED_ID/
+    const publishedMatch = url.match(/\/spreadsheets\/d\/e\/([\w-]+)\//);
+    if (publishedMatch) {
+      return publishedMatch[1];
+    }
+    // Match pattern: /spreadsheets/d/SHEET_ID/
+    const directMatch = url.match(/\/spreadsheets\/d\/([\w-]+)\//);
+    if (directMatch) {
+      return directMatch[1];
+    }
+  } catch (error) {
+    console.warn("Failed to extract sheet ID from URL", error);
+  }
+  return null;
+}
+
+const PUBLISHED_SHEET_URL = process.env.NEXT_PUBLIC_SHEET_URL ?? process.env.SHEET_URL;
+const EXTRACTED_SHEET_ID = PUBLISHED_SHEET_URL ? extractSheetIdFromUrl(PUBLISHED_SHEET_URL) : null;
+
 const SHEET_ID =
-  process.env.NEXT_PUBLIC_SHEET_ID ?? process.env.SHEET_ID ?? DEFAULT_SHEET_ID;
+  process.env.NEXT_PUBLIC_SHEET_ID ??
+  process.env.SHEET_ID ??
+  EXTRACTED_SHEET_ID ??
+  DEFAULT_SHEET_ID;
+
 const CONFIG_GID =
   process.env.NEXT_PUBLIC_CONFIG_GID ??
   process.env.CONFIG_GID ??
@@ -25,40 +51,29 @@ function buildConfigUrl() {
     return explicitUrl;
   }
 
-  const publishedSheetUrl = process.env.NEXT_PUBLIC_SHEET_URL ?? process.env.SHEET_URL;
-  if (publishedSheetUrl && CONFIG_GID) {
+  // If we have a published sheet URL, use it with the config GID
+  if (PUBLISHED_SHEET_URL && CONFIG_GID) {
     try {
-      // Extract the document ID from the published URL
-      const match = publishedSheetUrl.match(/\/d\/e\/([\w-]+)\//);
-      if (match) {
-        const docId = match[1];
-        // Use gviz format which supports GID parameter
-        return `https://docs.google.com/spreadsheets/d/e/${docId}/gviz/tq?tqx=out:csv&gid=${CONFIG_GID}`;
-      }
+      const url = new URL(PUBLISHED_SHEET_URL);
+      // Replace or add the gid parameter
+      url.searchParams.set("gid", CONFIG_GID);
+      // Ensure output is CSV
+      url.searchParams.set("output", "csv");
+      // Change from /pub to /pub/gviz if needed
+      const modifiedUrl = url.toString().replace("/pub?", "/pub/gviz?");
+      return modifiedUrl;
     } catch (error) {
-      console.warn("Failed to derive config URL from published sheet", error);
+      console.warn("Failed to build config URL from published sheet", error);
     }
   }
 
+  // Fallback to direct sheet ID access
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${CONFIG_GID}`;
 }
 
 const CONFIG_URL = buildConfigUrl();
 
 function buildFeatureConfigUrl() {
-  const publishedSheetUrl = process.env.NEXT_PUBLIC_SHEET_URL ?? process.env.SHEET_URL;
-  if (publishedSheetUrl && FEATURE_CONFIG_GID) {
-    try {
-      const match = publishedSheetUrl.match(/\/d\/e\/([\w-]+)\//);
-      if (match) {
-        const docId = match[1];
-        return `https://docs.google.com/spreadsheets/d/e/${docId}/gviz/tq?tqx=out:csv&gid=${FEATURE_CONFIG_GID}`;
-      }
-    } catch (error) {
-      console.warn("Failed to derive feature config URL from published sheet", error);
-    }
-  }
-
   return `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&gid=${FEATURE_CONFIG_GID}`;
 }
 

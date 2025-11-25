@@ -33,8 +33,8 @@ export function MenuSection({ title, description, icon, items, onSelect, onAddTo
           >
             {title}
           </h2>
-          <span className="text-xs font-semibold uppercase tracking-[0.4em] text-[#c2aa8b]">
-            {items.length} item{items.length > 1 ? "s" : ""}
+          <span className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#e9dcc9] px-2 text-xs font-bold text-[#7d6446]">
+            {items.length}
           </span>
         </div>
         {description ? (

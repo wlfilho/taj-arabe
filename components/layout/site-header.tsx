@@ -72,9 +72,6 @@ export function SiteHeader({ config }: SiteHeaderProps) {
             {config.restaurantName || "Restaurante"}
           </h1>
         </Link>
-        <div className="flex items-center gap-3">
-          <CartButton />
-        </div>
       </div>
 
       <SearchBarHeader />

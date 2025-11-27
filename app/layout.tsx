@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const restaurantName = config.restaurantName || "Menú";
 
   return {
-    metadataBase: new URL("https://cardapio.example.com"),
+    metadataBase: new URL("https://taj-arabe.vercel.app"),
     title: {
       default: restaurantName,
       template: `%s · ${restaurantName}`,
@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: defaultDescription,
       type: "website",
       locale: "es_CO",
-      url: "https://cardapio.example.com",
+      url: "https://taj-arabe.vercel.app",
       siteName: restaurantName,
       images: [
         {

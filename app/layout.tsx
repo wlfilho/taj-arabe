@@ -50,7 +50,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: restaurantName,
       images: [
         {
-          url: "/og-cardapio.png",
+          url: "/images/logo-tajarabe.png",
           width: 1200,
           height: 630,
           alt: `Menú digital ${restaurantName}`,
@@ -61,7 +61,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: restaurantName,
       description: defaultDescription,
-      images: ["/og-cardapio.png"],
+      images: ["/images/logo-tajarabe.png"],
     },
     icons: {
       icon: "/favicon.ico",
